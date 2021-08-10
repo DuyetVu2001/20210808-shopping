@@ -1,14 +1,16 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function Category(props) {
-	const { title, src } = props;
+	const { title, src, onPress } = props;
 
 	return (
-		<View style={styles.container}>
-			<Text style={styles.text}>{title}</Text>
-			<Image source={src} style={styles.image} />
-		</View>
+		<TouchableOpacity activeOpacity={0.6} onPress={onPress}>
+			<View style={styles.container}>
+				<Text style={styles.text}>{title}</Text>
+				<Image source={src} style={styles.image} />
+			</View>
+		</TouchableOpacity>
 	);
 }
 

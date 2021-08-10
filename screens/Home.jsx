@@ -7,7 +7,7 @@ import IMG4 from '../assets/img4.png';
 import IMG5 from '../assets/img5.png';
 import Category from '../components/Category';
 
-export default function Home() {
+export default function Home({ navigation }) {
 	const [items] = useState([
 		{ id: 1, title: 'Burger', src: IMG1 },
 		{ id: 2, title: 'Fast food', src: IMG2 },
@@ -19,7 +19,17 @@ export default function Home() {
 	return (
 		<FlatList
 			data={items}
-			renderItem={({ item }) => <Category {...item} />}
+			renderItem={({ item }) => (
+				<Category
+					{...item}
+					onPress={() =>
+						navigation.navigate('Details', {
+							title: item.title,
+							src: item.src,
+						})
+					}
+				/>
+			)}
 			keyExtractor={(item) => `${item.id}`}
 			style={styles.container}
 			showsVerticalScrollIndicator={false}
@@ -29,6 +39,6 @@ export default function Home() {
 
 const styles = StyleSheet.create({
 	container: {
-		marginTop: 32,
+		padding: 16,
 	},
 });
