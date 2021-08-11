@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
 	Alert,
 	Image,
@@ -8,8 +8,11 @@ import {
 	View,
 } from 'react-native';
 import cart from '../assets/cart.png';
+import { addToCart } from '../context/itemContext/ItemActions';
+import { ItemContext } from '../context/itemContext/ItemContext';
 
 export default function ProductItem(props) {
+	const { dispatch } = useContext(ItemContext);
 	const { src, title } = props;
 
 	const handlePress = () => {
@@ -18,7 +21,12 @@ export default function ProductItem(props) {
 				text: 'Cancel',
 				style: 'cancel',
 			},
-			{ text: 'OK', onPress: () => console.log('OK Pressed') },
+			{
+				text: 'OK',
+				onPress: () => {
+					dispatch(addToCart(props));
+				},
+			},
 		]);
 	};
 

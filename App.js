@@ -2,8 +2,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import ItemContextProvider, {
+	ItemContext,
+} from './context/itemContext/ItemContext';
 import Cart from './screens/Cart';
 import DetailItem from './screens/DetailItem';
 import Home from './screens/Home';
@@ -22,6 +25,9 @@ const MyTheme = {
 };
 
 function HomeTabs() {
+	const { state } = useContext(ItemContext);
+	const numberItems = state.length;
+
 	return (
 		<Tab.Navigator
 			screenOptions={({ route }) => ({
@@ -50,7 +56,11 @@ function HomeTabs() {
 			})}
 		>
 			<Tab.Screen name="Home" component={Home} />
-			<Tab.Screen name="Cart" component={Cart} options={{ tabBarBadge: 3 }} />
+			<Tab.Screen
+				name="Cart"
+				component={Cart}
+				options={{ tabBarBadge: numberItems }}
+			/>
 			<Tab.Screen name="Orders" component={Orders} />
 			<Tab.Screen name="Settings" component={Settings} />
 		</Tab.Navigator>
@@ -71,11 +81,11 @@ function HomeStack() {
 }
 
 export default function App() {
-	const [cartNumber, setCartNumber] = useState(0);
-
 	return (
-		<NavigationContainer theme={MyTheme}>
-			<HomeStack />
-		</NavigationContainer>
+		<ItemContextProvider>
+			<NavigationContainer theme={MyTheme}>
+				<HomeStack />
+			</NavigationContainer>
+		</ItemContextProvider>
 	);
 }
