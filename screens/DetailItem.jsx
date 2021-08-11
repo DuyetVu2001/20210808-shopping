@@ -1,10 +1,11 @@
-import React from 'react';
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
 import ProductItem from '../components/ProductItem';
 
 export default function DetailItem({ route }) {
 	const { src } = route.params;
-	const data = [
+	const [data, setData] = useState([
 		{ id: 1, title: 'hi 1', src },
 		{ id: 2, title: 'hi 12', src },
 		{ id: 3, title: 'hi 13', src },
@@ -15,7 +16,21 @@ export default function DetailItem({ route }) {
 		{ id: 8, title: 'hi 18', src },
 		{ id: 9, title: 'hi 19', src },
 		{ id: 10, title: 'hi 20', src },
-	];
+	]);
+
+	// useEffect(() => {
+	// 	axios
+	// 		.get('/todos/1')
+	// 		.then((res) => {
+	// 			console.log(res.data);
+	// 			// setData(res.data);
+	// 			console.log('object1');
+	// 		})
+	// 		.catch((error) => {
+	// 			console.log('object');
+	// 			console.error('error: ', error);
+	// 		});
+	// }, []);
 
 	return (
 		<FlatList
